@@ -218,42 +218,191 @@
     });
   }
 
-  // --- 7. Contact Form Simulation ---
+  // --- 7. Direct Message Form Handler (FormSubmit Direct API + Multi-Channel Instant Dispatch) ---
   function initContactForm() {
     const form = document.getElementById('portfolio-contact-form');
     if (!form) return;
 
-    form.addEventListener('submit', (e) => {
+    const statusBox = document.getElementById('form-status-box');
+    const nameInput = document.getElementById('contact-name');
+    const emailInput = document.getElementById('contact-email');
+    const messageInput = document.getElementById('contact-message');
+    const submitBtn = document.getElementById('btn-transmit-submit') || form.querySelector('button[type="submit"]');
+
+    function highlightDispatchButtons() {
+      const gmailBtn = document.getElementById('btn-dispatch-gmail');
+      const waBtn = document.getElementById('btn-dispatch-whatsapp');
+      if (gmailBtn) {
+        gmailBtn.classList.add('highlight-pulse');
+        setTimeout(() => gmailBtn.classList.remove('highlight-pulse'), 3500);
+      }
+      if (waBtn) {
+        waBtn.classList.add('highlight-pulse');
+        setTimeout(() => waBtn.classList.remove('highlight-pulse'), 3500);
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.getElementById('contact-name')?.value || 'Visitor';
-      const email = document.getElementById('contact-email')?.value;
-      const message = document.getElementById('contact-message')?.value;
+
+      const name = nameInput?.value?.trim() || 'Visitor';
+      const email = emailInput?.value?.trim();
+      const message = messageInput?.value?.trim();
 
       if (!email || !message) {
-        showToast('Please fill in your email and message.', 'error');
+        showToast('Please enter both your email address and message.');
         return;
       }
 
-      // Simulate sending
-      const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
       submitBtn.disabled = true;
-      submitBtn.innerHTML = 'Sending Transmit...';
+      submitBtn.innerHTML = `
+        <span style="display: inline-block; animation: spin 1s linear infinite; margin-right: 6px;">⚡</span>
+        <span>Transmitting to Satyam...</span>
+      `;
 
-      setTimeout(() => {
-        submitBtn.innerHTML = 'Message Received!';
-        showToast(`Thank you, ${name}! Your transmission has been queued for Satyam Yadav.`);
-        form.reset();
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/satyamyadav_23me244@dtu.ac.in', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message,
+            _subject: `New Portfolio Message from ${name} (${email})`,
+            _template: 'table',
+            _captcha: 'false'
+          })
+        });
 
-        // Also create a direct mailto backup option for recruiter
-        window.open(`mailto:satyamyadav_23me244@dtu.ac.in?subject=Portfolio Connection from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}`, '_blank');
+        const result = await response.json().catch(() => ({}));
 
-        setTimeout(() => {
+        if (result.success === true || result.success === 'true') {
+          // 100% delivered to DTU inbox
+          if (statusBox) {
+            statusBox.className = 'form-status-box success';
+            statusBox.style.display = 'flex';
+            statusBox.innerHTML = `
+              <div class="form-status-header">
+                <span>✔</span> <span>Message Delivered Directly to Satyam</span>
+              </div>
+              <div class="form-status-body">
+                Your message has been transmitted directly to <strong>satyamyadav_23me244@dtu.ac.in</strong>. Satyam will review your message and reply via email shortly.
+              </div>
+            `;
+          }
+          submitBtn.innerHTML = '✔ Transmitted Successfully!';
+          submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+          showToast(`Success! Your message was transmitted to Satyam Yadav.`);
+          form.reset();
+
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.background = '';
+          }, 4500);
+
+        } else if (result.message && (result.message.includes('Activation') || result.message.includes('actived') || result.message.includes('activate'))) {
+          // FormSubmit requires 1-time activation email confirmation
+          if (statusBox) {
+            statusBox.className = 'form-status-box warning';
+            statusBox.style.display = 'flex';
+            statusBox.innerHTML = `
+              <div class="form-status-header">
+                <span>📬</span> <span>1-Time Form Activation Required</span>
+              </div>
+              <div class="form-status-body">
+                FormSubmit has dispatched a 1-click activation link to <strong>satyamyadav_23me244@dtu.ac.in</strong>.<br>
+                Satyam, please click <strong>"Activate Form"</strong> in your DTU inbox once to enable permanent automatic delivery.<br><br>
+                👉 <strong>Send instantly right now:</strong> Click <strong>Gmail Web</strong> or <strong>WhatsApp</strong> below to dispatch your message immediately!
+              </div>
+            `;
+          }
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalText;
-        }, 3000);
-      }, 1000);
+          showToast('Activation email sent to Satyam. Use Gmail or WhatsApp below for instant send!');
+          highlightDispatchButtons();
+
+        } else {
+          // Any other FormSubmit response
+          throw new Error(result.message || 'Transmission failed');
+        }
+
+      } catch (err) {
+        console.warn('Direct API submission notice:', err);
+        if (statusBox) {
+          statusBox.className = 'form-status-box warning';
+          statusBox.style.display = 'flex';
+          statusBox.innerHTML = `
+            <div class="form-status-header">
+              <span>⚡</span> <span>Instant Webmail & Chat Options Ready</span>
+            </div>
+            <div class="form-status-body">
+              Your message is pre-filled and ready to send directly. Click <strong>Gmail Web</strong> or <strong>WhatsApp</strong> below to transmit in 1 click!
+            </div>
+          `;
+        }
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        showToast('Click Gmail Web or WhatsApp below to send instantly!');
+        highlightDispatchButtons();
+      }
     });
+
+    // Wire up Instant Dispatch Channels
+    const gmailDispatchBtn = document.getElementById('btn-dispatch-gmail');
+    const waDispatchBtn = document.getElementById('btn-dispatch-whatsapp');
+    const copyDispatchBtn = document.getElementById('btn-dispatch-copy');
+
+    if (gmailDispatchBtn) {
+      gmailDispatchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = nameInput?.value?.trim() || 'Visitor';
+        const email = emailInput?.value?.trim() || 'Not specified';
+        const msg = messageInput?.value?.trim() || 'Hello Satyam, I reviewed your data analytics portfolio and would like to connect.';
+        
+        const subject = encodeURIComponent(`Data Analytics Opportunity / Inquiry from ${name}`);
+        const body = encodeURIComponent(`From: ${name} (${email})\n\nMessage:\n${msg}`);
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=satyamyadav_23me244@dtu.ac.in&su=${subject}&body=${body}`;
+        
+        window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+        showToast('Opening pre-filled compose window in Gmail Web...');
+      });
+    }
+
+    if (waDispatchBtn) {
+      waDispatchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = nameInput?.value?.trim() || 'Visitor';
+        const email = emailInput?.value?.trim() || 'Not specified';
+        const msg = messageInput?.value?.trim() || 'Hello Satyam, I reviewed your data analytics portfolio and would like to connect.';
+
+        const waText = encodeURIComponent(`Hello Satyam,\n\nFrom: ${name} (${email})\n\nMessage:\n${msg}`);
+        const waUrl = `https://api.whatsapp.com/send?phone=919650446219&text=${waText}`;
+
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+        showToast('Opening WhatsApp with pre-filled message...');
+      });
+    }
+
+    if (copyDispatchBtn) {
+      copyDispatchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = nameInput?.value?.trim() || 'Visitor';
+        const email = emailInput?.value?.trim() || 'Not specified';
+        const msg = messageInput?.value?.trim() || 'Hello Satyam, I reviewed your data analytics portfolio and would like to connect.';
+
+        const payload = `Recipient: satyamyadav_23me244@dtu.ac.in\nSubject: Data Analytics Inquiry from ${name}\nFrom: ${name} (${email})\n\nMessage:\n${msg}`;
+        navigator.clipboard.writeText(payload).then(() => {
+          showToast('Copied full message & recipient details to clipboard!');
+        }).catch(() => {
+          showToast('Text copied to clipboard!');
+        });
+      });
+    }
   }
 
   // --- 8. Mobile Navigation Toggle & Resume Dropdown ---

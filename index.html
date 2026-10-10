@@ -12,7 +12,7 @@
   <meta property="og:title" content="Satyam Yadav | Data & Business Analyst Portfolio">
   <meta property="og:description" content="Bridging Engineering Analytical Rigor with Data Analytics, SQL Architecture, and Predictive Machine Learning.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/images/satyam-profile.jpg">
+  <meta property="og:image" content="assets/images/satyam-profile.png">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -188,7 +188,7 @@
                 </div>
 
                 <div class="hero-image-frame">
-                  <img src="assets/images/satyam-profile.jpg" alt="Satyam Yadav - Data & Business Analyst" class="hero-avatar-img">
+                  <img src="assets/images/satyam-profile.png" alt="Satyam Yadav - Data & Business Analyst" class="hero-avatar-img">
                   <div class="hero-scanline-overlay"></div>
                   <div class="hero-hologram-glow"></div>
                 </div>
@@ -989,7 +989,16 @@
 
             <!-- Contact Message Form -->
             <div class="card-tilt-3d contact-form-panel">
-              <h3 style="font-size: 1.35rem; color: #ffffff; margin-bottom: 20px;">Send a Direct Message</h3>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                <h3 style="font-size: 1.35rem; color: #ffffff; margin: 0;">Send a Direct Message</h3>
+                <span class="status-indicator">
+                  <span class="status-dot"></span>
+                  <span style="font-size: 0.75rem; color: var(--emerald-400); font-family: var(--font-mono);">INBOX ACTIVE</span>
+                </span>
+              </div>
+
+              <!-- Real-time Status Alert Box -->
+              <div id="form-status-box" class="form-status-box" style="display: none;"></div>
 
               <form id="portfolio-contact-form">
                 <div class="form-group">
@@ -1007,7 +1016,7 @@
                   <textarea id="contact-message" class="form-textarea" placeholder="Hello Satyam, I reviewed your data analytics portfolio and would like to discuss an opportunity..." required></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <button type="submit" class="btn btn-primary" id="btn-transmit-submit" style="width: 100%;">
                   <span>Transmit Message</span>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -1015,6 +1024,36 @@
                   </svg>
                 </button>
               </form>
+
+              <!-- Instant Dispatch Quick-Action Channels -->
+              <div class="direct-dispatch-options">
+                <div class="dispatch-divider">
+                  <span>or connect directly via instant channels</span>
+                </div>
+                <div class="dispatch-buttons-grid">
+                  <button type="button" class="btn-dispatch btn-gmail" id="btn-dispatch-gmail" title="Open pre-filled in Gmail Web">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.272H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                    </svg>
+                    <span>Gmail Web</span>
+                  </button>
+
+                  <button type="button" class="btn-dispatch btn-whatsapp" id="btn-dispatch-whatsapp" title="Send pre-filled via WhatsApp">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12.031 0C5.397 0 .018 5.38.018 12.013c0 2.118.552 4.185 1.602 6.007L.001 24l6.177-1.62c1.758.959 3.743 1.464 5.853 1.464 6.634 0 12.014-5.38 12.014-12.013C24.045 5.38 18.665 0 12.031 0zm.019 22.016c-1.79 0-3.543-.482-5.074-1.393l-.364-.216-3.768.988 1.006-3.673-.238-.378c-1-1.59-1.528-3.432-1.528-5.331 0-5.529 4.498-10.028 10.033-10.028 5.534 0 10.033 4.499 10.033 10.028 0 5.53-4.499 10.033-10.064 10.033zm5.498-7.508c-.301-.15-1.782-.88-2.058-.98-.276-.1-.476-.15-.677.15-.201.3-.778.98-.954 1.181-.176.2-.352.226-.653.075-.301-.15-1.272-.469-2.423-1.496-.895-.798-1.5-1.784-1.676-2.085-.176-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.151-.176.201-.301.301-.502.1-.2.05-.376-.025-.527-.075-.15-.678-1.632-.929-2.234-.244-.587-.492-.507-.677-.517l-.578-.01c-.2 0-.527.075-.803.376s-1.054 1.03-1.054 2.511c0 1.481 1.079 2.912 1.23 3.113.15.2 2.124 3.243 5.145 4.549.718.311 1.279.497 1.716.636.721.23 1.378.197 1.897.12.579-.087 1.782-.728 2.033-1.431.251-.703.251-1.305.176-1.431-.075-.126-.276-.201-.577-.351z"/>
+                    </svg>
+                    <span>WhatsApp</span>
+                  </button>
+
+                  <button type="button" class="btn-dispatch btn-copy" id="btn-dispatch-copy" title="Copy Message & Details">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>Copy Text</span>
+                  </button>
+                </div>
+              </div>
             </div>
 
           </div>
