@@ -308,7 +308,7 @@
     if (preset === 'crystal') {
       camera.position.set(window.innerWidth < 768 ? 0 : 80, 10, 420);
       camera.lookAt(window.innerWidth < 768 ? 0 : 180, 0, 0);
-    } else if (preset === 'supply') {
+    } else if (preset === 'network' || preset === 'supply') {
       camera.position.set(0, 150, 520);
       camera.lookAt(0, 0, 0);
     } else if (preset === 'gimbal') {

@@ -1,27 +1,27 @@
 /**
- * Satyam Yadav Portfolio - Interactive Demand & Inventory Simulator
- * Computes EOQ, Safety Stock, Reorder Point, and Cost Optimization in Real-Time
+ * Satyam Yadav Portfolio - Interactive Data & Business Analytics Engine
+ * Simulates Predictive Sales Forecasting, Customer Lifetime Value (CLV), and Churn Mitigation
  */
 
 (function () {
   'use strict';
 
   function initSimulator() {
-    const demandInput = document.getElementById('sim-demand');
-    const leadTimeInput = document.getElementById('sim-leadtime');
-    const holdingCostInput = document.getElementById('sim-holding');
-    const orderCostInput = document.getElementById('sim-ordercost');
-    const volatilityInput = document.getElementById('sim-volatility');
+    const ordersInput = document.getElementById('sim-orders');
+    const aovInput = document.getElementById('sim-aov');
+    const churnInput = document.getElementById('sim-churn');
+    const growthInput = document.getElementById('sim-growth');
+    const cacInput = document.getElementById('sim-cac');
 
-    const demandVal = document.getElementById('val-demand');
-    const leadTimeVal = document.getElementById('val-leadtime');
-    const holdingVal = document.getElementById('val-holding');
-    const orderCostVal = document.getElementById('val-ordercost');
-    const volatilityVal = document.getElementById('val-volatility');
+    const ordersVal = document.getElementById('val-orders');
+    const aovVal = document.getElementById('val-aov');
+    const churnVal = document.getElementById('val-churn');
+    const growthVal = document.getElementById('val-growth');
+    const cacVal = document.getElementById('val-cac');
 
-    const eoqDisplay = document.getElementById('sim-out-eoq');
-    const safetyDisplay = document.getElementById('sim-out-safety');
-    const savingsDisplay = document.getElementById('sim-out-savings');
+    const revenueDisplay = document.getElementById('sim-out-revenue');
+    const clvDisplay = document.getElementById('sim-out-clv');
+    const roiDisplay = document.getElementById('sim-out-roi');
 
     const canvas = document.getElementById('sim-canvas');
     if (!canvas) return;
@@ -29,50 +29,44 @@
 
     function updateSimulation() {
       // 1. Gather values
-      const monthlyDemand = parseFloat(demandInput.value);
-      const annualDemand = monthlyDemand * 12;
-      const leadTimeDays = parseFloat(leadTimeInput.value);
-      const leadTimeMonths = leadTimeDays / 30;
-      const holdingCost = parseFloat(holdingCostInput.value);
-      const orderCost = parseFloat(orderCostInput.value);
-      const volatility = parseFloat(volatilityInput.value) / 100;
+      const monthlyOrders = parseFloat(ordersInput.value);
+      const aov = parseFloat(aovInput.value);
+      const churnRate = parseFloat(churnInput.value) / 100;
+      const growthRate = parseFloat(growthInput.value) / 100;
+      const cac = parseFloat(cacInput.value);
 
-      // Update text tags
-      if (demandVal) demandVal.textContent = monthlyDemand.toLocaleString() + ' units/mo';
-      if (leadTimeVal) leadTimeVal.textContent = leadTimeDays + ' days';
-      if (holdingVal) holdingVal.textContent = '$' + holdingCost + '/unit/yr';
-      if (orderCostVal) orderCostVal.textContent = '$' + orderCost + '/order';
-      if (volatilityVal) volatilityVal.textContent = Math.round(volatility * 100) + '%';
+      // Update text display tags
+      if (ordersVal) ordersVal.textContent = monthlyOrders.toLocaleString() + ' orders/mo';
+      if (aovVal) aovVal.textContent = '$' + aov.toFixed(0);
+      if (churnVal) churnVal.textContent = Math.round(churnRate * 100) + '% / mo';
+      if (growthVal) growthVal.textContent = '+' + Math.round(growthRate * 100) + '%';
+      if (cacVal) cacVal.textContent = '$' + cac.toFixed(0);
 
       // 2. Calculations
-      // EOQ Formula: sqrt((2 * D * S) / H)
-      const eoq = Math.round(Math.sqrt((2 * annualDemand * orderCost) / holdingCost));
+      // Base Monthly Revenue
+      const monthlyRevenue = monthlyOrders * aov;
+      // Annualized Revenue factoring growth trend
+      const annualRevenue = monthlyRevenue * 12 * (1 + growthRate * 0.5);
 
-      // Demand standard deviation over lead time:
-      // sigma_L = (monthlyDemand * volatility) * sqrt(leadTimeMonths)
-      const sigmaMonthly = monthlyDemand * volatility;
-      const sigmaL = sigmaMonthly * Math.sqrt(leadTimeMonths);
+      // Customer Lifetime Value: CLV = (AOV * Annual Purchase Frequency) / Annual Churn Rate
+      // Normalized annual churn = 1 - (1 - monthlyChurn)^12
+      const annualChurn = Math.min(0.95, 1 - Math.pow(1 - churnRate, 12));
+      const annualFrequency = 3.6; // average recurring transactions per customer per year
+      const clv = Math.round((aov * annualFrequency) / (annualChurn || 0.1));
 
-      // 95% service level Z-score is 1.645
-      const safetyStock = Math.round(1.645 * sigmaL);
-
-      // Estimated annual holding savings with optimized demand forecasting vs naive 25% over-buffering
-      const naiveBuffer = monthlyDemand * 0.35;
-      const optimizedBuffer = safetyStock;
-      const unitExcessSaved = Math.max(0, naiveBuffer - optimizedBuffer);
-      const annualSavings = Math.round(unitExcessSaved * holdingCost + (annualDemand / eoq) * (orderCost * 0.2));
+      // Revenue gained via ML Churn Retention & RFM Targeting (simulating 18% churn reduction)
+      const churnMitigationGained = Math.round(monthlyRevenue * 12 * (churnRate * 0.18));
 
       // Display outputs
-      if (eoqDisplay) eoqDisplay.textContent = eoq.toLocaleString() + ' units';
-      if (safetyDisplay) safetyDisplay.textContent = safetyStock.toLocaleString() + ' units';
-      if (savingsDisplay) savingsDisplay.textContent = '$' + annualSavings.toLocaleString();
+      if (revenueDisplay) revenueDisplay.textContent = '$' + Math.round(annualRevenue).toLocaleString();
+      if (clvDisplay) clvDisplay.textContent = '$' + clv.toLocaleString();
+      if (roiDisplay) roiDisplay.textContent = '+$' + churnMitigationGained.toLocaleString();
 
       // 3. Render Chart
-      renderChart(monthlyDemand, volatility, safetyStock, eoq);
+      renderChart(monthlyRevenue, growthRate, churnRate);
     }
 
-    function renderChart(baseDemand, volatility, safetyStock, eoq) {
-      // Set actual canvas pixels to match display size
+    function renderChart(baseMonthlyRevenue, growthRate, churnRate) {
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * (window.devicePixelRatio || 1);
       canvas.height = rect.height * (window.devicePixelRatio || 1);
@@ -82,25 +76,28 @@
       const h = canvas.height;
       const padding = 35 * (window.devicePixelRatio || 1);
 
-      // Generate 12 months simulated demand with forecasting trend
-      const points = [];
+      // 12-Month Predictive Forecast
       const months = 12;
-      let minVal = baseDemand * (1 - volatility * 1.5);
-      let maxVal = baseDemand * (1 + volatility * 1.8);
+      const points = [];
+      let minVal = baseMonthlyRevenue * 0.7;
+      let maxVal = baseMonthlyRevenue * (1 + growthRate * 1.4);
 
       for (let m = 0; m < months; m++) {
-        // Pseudo seasonal trend with volatility
-        const seasonal = Math.sin((m / 12) * Math.PI * 2) * (baseDemand * volatility * 0.7);
-        const randomNoise = ((m * 17) % 7 - 3) / 10 * (baseDemand * volatility);
-        const val = Math.max(10, baseDemand + seasonal + randomNoise);
+        // Trend with compounding growth and seasonality
+        const trend = baseMonthlyRevenue * Math.pow(1 + growthRate / 12, m);
+        const seasonal = Math.sin((m / 12) * Math.PI * 2) * (baseMonthlyRevenue * 0.08);
+        const noise = ((m * 19) % 7 - 3) / 100 * baseMonthlyRevenue;
+        const val = Math.max(100, trend + seasonal + noise);
         points.push(val);
+        if (val > maxVal) maxVal = val;
+        if (val < minVal) minVal = val;
       }
 
       // Scaling helper
       const scaleX = (i) => padding + (i / (months - 1)) * (w - padding * 2);
       const scaleY = (val) => h - padding - ((val - minVal) / (maxVal - minVal || 1)) * (h - padding * 2);
 
-      // Draw horizontal grid lines
+      // Grid lines
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
       ctx.lineWidth = 1;
       for (let i = 0; i <= 4; i++) {
@@ -111,24 +108,25 @@
         ctx.stroke();
       }
 
-      // Draw Confidence Interval Band (95% CI)
-      ctx.fillStyle = 'rgba(56, 189, 248, 0.08)';
+      // 95% Confidence Interval Band (Violet-Cyan glow)
+      const ciSpread = baseMonthlyRevenue * 0.09;
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.09)';
       ctx.beginPath();
       for (let i = 0; i < months; i++) {
         const x = scaleX(i);
-        const yUpper = scaleY(points[i] + baseDemand * volatility * 0.6);
+        const yUpper = scaleY(points[i] + ciSpread);
         if (i === 0) ctx.moveTo(x, yUpper);
         else ctx.lineTo(x, yUpper);
       }
       for (let i = months - 1; i >= 0; i--) {
         const x = scaleX(i);
-        const yLower = scaleY(points[i] - baseDemand * volatility * 0.6);
+        const yLower = scaleY(points[i] - ciSpread);
         ctx.lineTo(x, yLower);
       }
       ctx.closePath();
       ctx.fill();
 
-      // Draw Forecast Demand Curve (Cyan Glow)
+      // Forecast Curve (Electric Cyan Line)
       ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 3 * (window.devicePixelRatio || 1);
       ctx.shadowColor = 'rgba(56, 189, 248, 0.6)';
@@ -140,7 +138,6 @@
         const y = scaleY(points[i]);
         if (i === 0) ctx.moveTo(x, y);
         else {
-          // Smooth curve using bezier
           const prevX = scaleX(i - 1);
           const prevY = scaleY(points[i - 1]);
           const cpX = (prevX + x) / 2;
@@ -149,7 +146,7 @@
       }
       ctx.stroke();
 
-      // Draw Data Nodes on curve
+      // Plot data points
       ctx.shadowBlur = 0;
       ctx.fillStyle = '#ffffff';
       for (let i = 0; i < months; i++) {
@@ -160,27 +157,27 @@
         ctx.fill();
       }
 
-      // Draw Optimal Reorder Point Line (Emerald dashed)
-      const optimalY = scaleY(baseDemand);
+      // Baseline Target Line (Emerald Dashed)
+      const targetY = scaleY(baseMonthlyRevenue);
       ctx.strokeStyle = '#10b981';
       ctx.lineWidth = 2 * (window.devicePixelRatio || 1);
       ctx.setLineDash([6 * (window.devicePixelRatio || 1), 4 * (window.devicePixelRatio || 1)]);
       ctx.beginPath();
-      ctx.moveTo(padding, optimalY);
-      ctx.lineTo(w - padding, optimalY);
+      ctx.moveTo(padding, targetY);
+      ctx.lineTo(w - padding, targetY);
       ctx.stroke();
-      ctx.setLineDash([]); // Reset line dash
+      ctx.setLineDash([]);
 
       // Legend Text in Canvas
       ctx.font = `${11 * (window.devicePixelRatio || 1)}px 'JetBrains Mono', monospace`;
       ctx.fillStyle = '#38bdf8';
-      ctx.fillText('● ML Demand Forecast', padding + 10, padding - 10);
+      ctx.fillText('● ML Sales Forecast (95% CI)', padding + 10, padding - 10);
       ctx.fillStyle = '#10b981';
-      ctx.fillText('-- Baseline Target', padding + 180 * (window.devicePixelRatio || 1), padding - 10);
+      ctx.fillText('-- Baseline Target', padding + 220 * (window.devicePixelRatio || 1), padding - 10);
     }
 
     // Event Listeners on Sliders
-    const sliders = [demandInput, leadTimeInput, holdingCostInput, orderCostInput, volatilityInput];
+    const sliders = [ordersInput, aovInput, churnInput, growthInput, cacInput];
     sliders.forEach(slider => {
       if (slider) {
         slider.addEventListener('input', updateSimulation);
@@ -191,7 +188,6 @@
       updateSimulation();
     });
 
-    // Run initial update
     updateSimulation();
   }
 

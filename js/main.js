@@ -8,11 +8,12 @@
 
   // --- 1. Dynamic Typing Effect ---
   const typingWords = [
-    'Supply Chain & Demand Forecasting',
-    'Inventory Analytics & Cost Reduction',
-    'MySQL Architecture (~100K Orders)',
-    'DRDO SSPL Crystal Growth Research',
-    'Predictive Sales & Vehicle Modeling'
+    'Data & Business Analytics',
+    'SQL Architecture & KPI Modeling',
+    'Python (Pandas, NumPy, Scikit-learn)',
+    'Power BI & Interactive Dashboards',
+    'Predictive Machine Learning & EDA',
+    'Customer Intelligence & CLV Projections'
   ];
 
   let wordIndex = 0;
