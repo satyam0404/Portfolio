@@ -423,18 +423,37 @@
       });
     }
 
-    // Resume Dropdown click toggle
+    // Resume Dropdown click toggle & accessibility
     const resumeBtn = document.getElementById('nav-resume-btn');
     const resumeMenu = document.getElementById('resume-menu');
     if (resumeBtn && resumeMenu) {
       resumeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
-        resumeMenu.classList.toggle('show');
+        const isShown = resumeMenu.classList.toggle('show');
+        resumeBtn.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+      });
+
+      // Close dropdown when clicking an item inside it
+      resumeMenu.querySelectorAll('.resume-item').forEach(item => {
+        item.addEventListener('click', () => {
+          resumeMenu.classList.remove('show');
+          resumeBtn.setAttribute('aria-expanded', 'false');
+        });
       });
 
       document.addEventListener('click', (e) => {
-        if (!resumeMenu.contains(e.target) && e.target !== resumeBtn) {
+        if (!resumeMenu.contains(e.target) && !resumeBtn.contains(e.target)) {
           resumeMenu.classList.remove('show');
+          resumeBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && resumeMenu.classList.contains('show')) {
+          resumeMenu.classList.remove('show');
+          resumeBtn.setAttribute('aria-expanded', 'false');
+          resumeBtn.focus();
         }
       });
     }

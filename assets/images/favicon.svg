@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#07090e"/>
+    </linearGradient>
+    <linearGradient id="cyanViolet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="topFacet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="leftFacet" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#1e1b4b" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="rightFacet" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#312e81" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Squircle with Subtle Cyber Border -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bgGrad)" stroke="#38bdf8" stroke-width="1.8" stroke-opacity="0.45"/>
+
+  <!-- Subtle Blueprint Crosshairs in Background -->
+  <line x1="8" y1="32" x2="56" y2="32" stroke="#38bdf8" stroke-width="0.75" stroke-opacity="0.15" stroke-dasharray="2,2"/>
+  <line x1="32" y1="8" x2="32" y2="56" stroke="#38bdf8" stroke-width="0.75" stroke-opacity="0.15" stroke-dasharray="2,2"/>
+
+  <!-- 3D Geometric Crystal Core Faces -->
+  <!-- Top Rhombus Face -->
+  <polygon points="32,13 47,21.5 32,30 17,21.5" fill="url(#topFacet)" stroke="#7dd3fc" stroke-width="1.2"/>
+  <!-- Left Facet -->
+  <polygon points="17,21.5 32,30 32,49 17,40" fill="url(#leftFacet)" stroke="#38bdf8" stroke-width="1.2"/>
+  <!-- Right Facet -->
+  <polygon points="32,30 47,21.5 47,40 32,49" fill="url(#rightFacet)" stroke="#a78bfa" stroke-width="1.2"/>
+
+  <!-- Glowing Internal Nodes (Data Vertices) -->
+  <circle cx="32" cy="13" r="2.2" fill="#e0f2fe" filter="url(#cyanGlow)"/>
+  <circle cx="47" cy="21.5" r="2" fill="#c084fc"/>
+  <circle cx="17" cy="21.5" r="2" fill="#38bdf8"/>
+  <circle cx="32" cy="30" r="2.5" fill="#ffffff" filter="url(#cyanGlow)"/>
+  <circle cx="32" cy="49" r="2.2" fill="#818cf8"/>
+  <circle cx="17" cy="40" r="1.8" fill="#38bdf8"/>
+  <circle cx="47" cy="40" r="1.8" fill="#a78bfa"/>
+
+  <!-- Dynamic Orbiting Energy Arc -->
+  <path d="M 12 36 A 22 10 30 0 1 52 28" fill="none" stroke="url(#cyanViolet)" stroke-width="1.6" stroke-linecap="round" opacity="0.85" filter="url(#cyanGlow)"/>
+</svg>

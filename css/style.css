@@ -491,25 +491,28 @@ h1, h2, h3, h4, .font-heading {
 
 .resume-dropdown-menu {
   position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  min-width: 280px;
-  background: var(--bg-surface);
+  top: calc(100% + 10px);
+  right: 0;
+  left: auto;
+  min-width: 250px;
+  background: rgba(11, 17, 32, 0.95);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border-highlight);
   border-radius: var(--radius-md);
-  padding: 10px;
-  box-shadow: var(--shadow-lg);
+  padding: 8px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(56, 189, 248, 0.15);
   display: none;
-  z-index: 50;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 200;
 }
 
 .resume-dropdown-wrapper:hover .resume-dropdown-menu,
 .resume-dropdown-wrapper:focus-within .resume-dropdown-menu,
 .resume-dropdown-menu.show {
-  display: block;
-  animation: fadeInDown 0.25s ease-out;
+  display: flex;
+  animation: fadeInDown 0.22s ease-out forwards;
 }
 
 @keyframes fadeInDown {
@@ -519,28 +522,59 @@ h1, h2, h3, h4, .font-heading {
 
 .resume-item {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   text-decoration: none;
   color: var(--text-main);
   transition: var(--transition-fast);
+  border: 1px solid transparent;
 }
 
 .resume-item:hover {
   background: var(--cyan-subtle);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #ffffff;
+}
+
+.resume-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan-400);
+  flex-shrink: 0;
+  transition: var(--transition-fast);
+}
+
+.resume-item:hover .resume-item-icon {
+  background: var(--cyan-500);
+  color: #ffffff;
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.resume-item-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
 }
 
 .resume-item-title {
   font-weight: 600;
   font-size: 0.88rem;
+  color: #ffffff;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 6px;
 }
 
 .resume-item-desc {
-  font-size: 0.75rem;
+  font-size: 0.73rem;
   color: var(--text-dim);
   margin-top: 3px;
 }
@@ -702,6 +736,12 @@ h1, h2, h3, h4, .font-heading {
 section {
   padding: 110px 0;
   position: relative;
+  scroll-margin-top: 85px;
+}
+
+.section-header,
+[id] {
+  scroll-margin-top: 85px;
 }
 
 .section-header {
@@ -1763,8 +1803,83 @@ input[type="range"]::-webkit-slider-thumb:hover {
     grid-template-columns: 1fr;
   }
 
+  /* Compact Floating Horizontal Bar for 3D Camera Modes on Mobile */
   .scene-controls-panel {
-    display: none; /* Hide 3D switcher on small touchscreens to maximize space */
+    display: flex;
+    position: fixed;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: calc(100vw - 24px);
+    padding: 6px 12px;
+    gap: 6px;
+    background: rgba(11, 17, 32, 0.92);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: var(--radius-full);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 16px rgba(56, 189, 248, 0.2);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scene-controls-panel span {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--cyan-400);
+    letter-spacing: 0.05em;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    padding-left: 2px;
+  }
+
+  .scene-controls-panel .scene-btn {
+    padding: 5px 10px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+  }
+
+  /* Prevent toast notifications from colliding with floating 3D bar */
+  .toast-container {
+    bottom: 74px;
+    right: 16px;
+    left: 16px;
+    align-items: center;
+  }
+
+  /* Compact header buttons on tablets & phones */
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .nav-social-btn .nav-btn-text {
+    display: none;
+  }
+
+  .nav-social-btn {
+    padding: 8px 10px;
+  }
+
+  .mobile-only-resume {
+    display: block;
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .mobile-resume-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
@@ -1928,6 +2043,21 @@ input[type="range"]::-webkit-slider-thumb:hover {
 @media (max-width: 480px) {
   .dispatch-buttons-grid {
     grid-template-columns: 1fr;
+  }
+
+  .scene-controls-panel {
+    padding: 5px 8px;
+    gap: 4px;
+    max-width: calc(100vw - 16px);
+  }
+
+  .scene-controls-panel .scene-btn {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+  }
+
+  .brand-sub {
+    display: none;
   }
 }
 
