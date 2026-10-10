@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satyam Yadav | Mechanical Engineer & Data / Supply Chain Analyst</title>
+  <meta name="description" content="Official 3D Portfolio of Satyam Yadav, DTU Mechanical Engineering undergraduate specializing in Supply Chain Planning, Demand Forecasting, MySQL Architecture, and DRDO SSPL Crystal Growth Research.">
+  <meta name="keywords" content="Satyam Yadav, DTU, Mechanical Engineering, Supply Chain, Data Analyst, Demand Forecasting, SQL, MySQL, Python, DRDO SSPL, Portfolio">
+  <meta name="author" content="Satyam Yadav">
+
+  <!-- Open Graph Meta Tags for GitHub & Social Sharing -->
+  <meta property="og:title" content="Satyam Yadav | 3D Interactive Portfolio">
+  <meta property="og:description" content="Bridging Mechanical Engineering with Data Analytics, Supply Chain Optimization, and Demand Forecasting.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/satyam-profile.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Three.js (r128 for 3D WebGL Scene) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- Ambient Blueprint Grid Overlay -->
+  <div class="blueprint-grid" aria-hidden="true"></div>
+
+  <!-- 3D WebGL Background Canvas Layer -->
+  <div id="webgl-canvas-container" aria-hidden="true">
+    <canvas id="three-canvas"></canvas>
+  </div>
+
+  <!-- Floating 3D Scene Camera Modes -->
+  <div class="scene-controls-panel" aria-label="3D View Controls">
+    <span>3D Mode:</span>
+    <button class="scene-btn active" data-preset="crystal">Crystal Core</button>
+    <button class="scene-btn" data-preset="supply">Supply Web</button>
+    <button class="scene-btn" data-preset="gimbal">Mechanical Gimbal</button>
+  </div>
+
+  <!-- Foreground Content -->
+  <div class="content-wrapper">
+
+    <!-- Top Navigation -->
+    <header class="site-header">
+      <div class="container navbar">
+        <a href="#hero" class="brand-logo" aria-label="Satyam Yadav Homepage">
+          <div class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">SATYAM YADAV</span>
+            <span class="brand-sub">DTU • MECH & DATA</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#experience" class="nav-link">DRDO Research</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#simulator" class="nav-link">Live Simulator</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Action Items -->
+        <div class="nav-actions">
+          <div class="resume-dropdown-wrapper">
+            <button class="btn btn-primary btn-sm" id="nav-resume-btn" aria-haspopup="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Get Resume</span>
+            </button>
+            <div class="resume-dropdown-menu" id="resume-menu">
+              <a href="assets/docs/Satyam_Yadav_Resume_SupplyChain.pdf" download="Satyam_Yadav_SupplyChain_Resume.pdf" class="resume-item">
+                <div class="resume-item-title">
+                  <span>Supply Chain & Operations CV</span>
+                  <span class="tag-pill">PDF</span>
+                </div>
+                <div class="resume-item-desc">Focus: Demand Planning, Inventory Analytics, Procurement</div>
+              </a>
+              <a href="assets/docs/Satyam_Yadav_Resume_DataAnalyst.pdf" download="Satyam_Yadav_Resume_DataAnalyst.pdf" class="resume-item">
+                <div class="resume-item-title">
+                  <span>Data & Business Analyst CV</span>
+                  <span class="tag-pill">PDF</span>
+                </div>
+                <div class="resume-item-desc">Focus: SQL, Python ML, Predictive Forecasting, Excel</div>
+              </a>
+            </div>
+          </div>
+
+          <a href="https://github.com/satyam0404" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" aria-label="Satyam Yadav GitHub Profile">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            <span>GitHub</span>
+          </a>
+
+          <!-- Mobile Nav Toggle -->
+          <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Flow -->
+    <main>
+
+      <!-- ================= HERO SECTION ================= -->
+      <section id="hero" class="hero-section">
+        <div class="container">
+          <div class="hero-grid">
+
+            <!-- Hero Left: Content -->
+            <div class="hero-intro">
+              <div class="hero-pill-badge">
+                <span class="badge-dot"></span>
+                <span>DELHI TECHNOLOGICAL UNIVERSITY (DTU) • 2023-2027</span>
+              </div>
+
+              <h1 class="hero-title">
+                Bridging <span class="gradient-text">Mechanical Rigor</span> with <span class="gradient-text-alt">Data Analytics</span>
+              </h1>
+
+              <div class="hero-typing-box">
+                <span class="typing-prefix">&gt; specializing_in:</span>
+                <span id="typing-text">Supply Chain Planning</span>
+                <span class="typing-cursor"></span>
+              </div>
+
+              <p class="hero-bio">
+                Mechanical Engineering undergraduate at <strong>DTU</strong> with hands-on experience in 
+                <strong>demand forecasting</strong>, <strong>inventory analytics</strong>, and <strong>MySQL data pipelines</strong>. 
+                Passionate about supply chain optimization, reducing holding costs, and converting operational engineering telemetry into high-impact business decisions.
+              </p>
+
+              <div class="hero-cta-group">
+                <a href="#projects" class="btn btn-primary">
+                  <span>Explore Projects</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+
+                <a href="#simulator" class="btn btn-emerald">
+                  <span>Launch Live Simulator</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </a>
+
+                <a href="#contact" class="btn btn-outline">
+                  <span>Get in Touch</span>
+                </a>
+              </div>
+
+              <!-- Quick Metrics Strip -->
+              <div class="metrics-strip">
+                <div class="metric-item">
+                  <div class="metric-number">100K<span class="metric-accent">+</span></div>
+                  <div class="metric-label">Orders Analyzed</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-number">9</div>
+                  <div class="metric-label">Relational Tables</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-number">7.028</div>
+                  <div class="metric-label">CGPA at DTU</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-number">DRDO</div>
+                  <div class="metric-label">SSPL Research</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Right: Holographic 3D Profile Card -->
+            <div class="hero-card-3d-wrap">
+              <div class="hero-profile-card">
+                <div class="hero-profile-header">
+                  <span class="hero-status-tag">
+                    <span class="badge-dot" style="background: var(--emerald-400);"></span>
+                    Ready for Supply Chain & Analyst Roles
+                  </span>
+                  <span class="tag-pill font-mono">B.Tech ME '27</span>
+                </div>
+
+                <div class="hero-image-frame">
+                  <img src="assets/images/satyam-profile.jpg" alt="Satyam Yadav - Mechanical Engineer & Data Analyst" class="hero-avatar-img">
+                  <div class="hero-scanline-overlay"></div>
+                  <div class="hero-hologram-glow"></div>
+                </div>
+
+                <div class="hero-profile-info">
+                  <h2 class="hero-profile-name">Satyam Yadav</h2>
+                  <div class="hero-profile-role">Mechanical Engineer & Data / Business Analyst</div>
+                  <div class="hero-tags-cloud">
+                    <span class="tag-pill">Python (Pandas, NumPy)</span>
+                    <span class="tag-pill">SQL (MySQL)</span>
+                    <span class="tag-pill">Power BI</span>
+                    <span class="tag-pill">Advanced Excel</span>
+                    <span class="tag-pill">Demand Forecasting</span>
+                    <span class="tag-pill">Inventory EOQ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ABOUT ME SECTION ================= -->
+      <section id="about">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Engineering × Analytics</span>
+            <h2 class="section-title">Bridging Physical Systems & Data Intelligence</h2>
+            <p class="section-desc">
+              Transforming complex operational and physical system data into actionable technical insights that eliminate supply bottlenecks.
+            </p>
+          </div>
+
+          <div class="about-grid">
+            <div class="card-tilt-3d about-card-left">
+              <h3 class="about-lead">
+                DTU Mechanical Engineer driven to improve inventory levels, reduce holding costs, and streamline material flow.
+              </h3>
+              <p class="about-text">
+                As a Mechanical Engineering undergraduate at <strong>Delhi Technological University (DTU)</strong>, I have cultivated a unique blend of core engineering analytical thinking and data-driven problem solving. From investigating high-temperature semiconductor physics at <strong>DRDO Solid State Physics Laboratory (SSPL)</strong> to architecting enterprise MySQL relational schemas for over 100,000 e-commerce orders, my work bridges physical engineering with predictive supply chain analytics.
+              </p>
+              <p class="about-text">
+                I leverage <strong>Python</strong>, <strong>SQL</strong>, <strong>Power BI</strong>, and <strong>Advanced Excel</strong> to build KPI views, forecast future vehicle demand, calculate economic order quantities (EOQ), and optimize procurement cycles.
+              </p>
+
+              <!-- Direct Contact Shortcuts -->
+              <div class="contact-quick-list">
+                <a href="mailto:satyamyadav_23me244@dtu.ac.in" class="contact-quick-item" title="Click to email">
+                  <div class="contact-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.72rem; color: var(--text-dim);">UNIVERSITY EMAIL</div>
+                    <div style="font-weight: 600; font-size: 0.82rem;">satyamyadav_23me244@dtu.ac.in</div>
+                  </div>
+                </a>
+
+                <a href="tel:+919650446219" class="contact-quick-item" title="Click to call">
+                  <div class="contact-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.72rem; color: var(--text-dim);">PHONE</div>
+                    <div style="font-weight: 600; font-size: 0.82rem;">+91 9650446219</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Pillars Grid -->
+            <div class="pillars-grid">
+              <div class="card-tilt-3d pillar-card">
+                <div class="pillar-icon-box icon-cyan">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                  </svg>
+                </div>
+                <h4 class="pillar-title">Supply Chain Planning</h4>
+                <p class="pillar-desc">
+                  Optimizing inventory levels, computing buffer & safety stocks, streamlining material flow, and reducing excessive holding costs.
+                </p>
+              </div>
+
+              <div class="card-tilt-3d pillar-card">
+                <div class="pillar-icon-box icon-emerald">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                </div>
+                <h4 class="pillar-title">Demand & Sales Forecasting</h4>
+                <p class="pillar-desc">
+                  Applying predictive statistical models and machine learning to forecast consumer and vehicle demand trends to prevent stockouts.
+                </p>
+              </div>
+
+              <div class="card-tilt-3d pillar-card">
+                <div class="pillar-icon-box icon-violet">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                  </svg>
+                </div>
+                <h4 class="pillar-title">Relational SQL Architecture</h4>
+                <p class="pillar-desc">
+                  Structuring robust MySQL schemas, executing multi-table joins, rigorous data hygiene checks, and calculating delivery cycle metrics.
+                </p>
+              </div>
+
+              <div class="card-tilt-3d pillar-card">
+                <div class="pillar-icon-box icon-amber">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                    <path d="M2 12h20"></path>
+                  </svg>
+                </div>
+                <h4 class="pillar-title">Physical Systems & DRDO</h4>
+                <p class="pillar-desc">
+                  Hands-on crystal growth synthesis research at DRDO SSPL, bridging thermodynamics, material properties, and thermal process control.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= RESEARCH & INTERNSHIP (DRDO SSPL) ================= -->
+      <section id="experience">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Defense R&D Experience</span>
+            <h2 class="section-title">DRDO SSPL | Crystal Growth</h2>
+            <p class="section-desc">
+              Research at Solid State Physics Laboratory (SSPL), Defence Research and Development Organisation.
+            </p>
+          </div>
+
+          <article class="card-tilt-3d experience-featured-card">
+            <div class="exp-image-wrap">
+              <img src="assets/images/crystal-growth-project.jpg" alt="DRDO SSPL Crystal Growth System" class="exp-image">
+              <div class="exp-badge-float">SOLID STATE PHYSICS LABORATORY</div>
+            </div>
+
+            <div class="exp-content">
+              <div class="exp-header">
+                <h3 class="exp-organization">
+                  DRDO SSPL
+                  <span class="tag-pill" style="color: var(--amber-400); border-color: var(--amber-400);">Govt. of India</span>
+                </h3>
+                <div class="exp-role">Research / Intern — Crystal Growth</div>
+                <div class="exp-meta">
+                  <span>📍 Delhi, India</span>
+                  <span>⚙️ Mechanical & Solid State Materials</span>
+                </div>
+              </div>
+
+              <p class="exp-description">
+                Engaged in advanced semiconductor crystal growth research at DRDO’s premier solid-state materials laboratory. Analyzed mechanical furnace dynamics, thermal gradients, and material crystallization processes essential for defense-grade electronic substrates.
+              </p>
+
+              <ul class="exp-highlights">
+                <li class="exp-highlight-item">
+                  <span class="bullet-icon">◆</span>
+                  <span>Investigated crystal growth methodologies (including Czochralski pulling dynamics and Bridgman techniques) for semiconductor crystal ingots.</span>
+                </li>
+                <li class="exp-highlight-item">
+                  <span class="bullet-icon">◆</span>
+                  <span>Studied thermal profile variations, melt-solid interface stability, and pull rate mechanical controls to minimize structural lattice dislocations.</span>
+                </li>
+                <li class="exp-highlight-item">
+                  <span class="bullet-icon">◆</span>
+                  <span>Bridged fundamental mechanical thermodynamic principles with experimental material synthesis data logging.</span>
+                </li>
+              </ul>
+
+              <div class="project-tags">
+                <span class="project-tag">Crystal Growth</span>
+                <span class="project-tag">Semiconductor Synthesis</span>
+                <span class="project-tag">Thermal Dynamics</span>
+                <span class="project-tag">DRDO SSPL</span>
+                <span class="project-tag">Process Optimization</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= FEATURED PROJECTS ================= -->
+      <section id="projects">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Technical Portfolio</span>
+            <h2 class="section-title">Projects & Real-World Implementations</h2>
+            <p class="section-desc">
+              Enterprise relational database engineering, delivery bottleneck identification, and predictive sales demand forecasting.
+            </p>
+          </div>
+
+          <div class="projects-grid">
+
+            <!-- Project 1: Olist E-commerce -->
+            <article class="card-tilt-3d project-card">
+              <div class="project-thumbnail-box">
+                <img src="assets/images/ecommerce-project.jpg" alt="Delivery Performance & Seller Analysis" class="project-thumb">
+                <div class="project-overlay-badge">MySQL / SQL KPI Engine</div>
+              </div>
+
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="project-tag">MySQL</span>
+                  <span class="project-tag">SQL</span>
+                  <span class="project-tag">Data Quality</span>
+                  <span class="project-tag">Supply Chain KPIs</span>
+                  <span class="project-tag">Relational Schema</span>
+                </div>
+
+                <h3 class="project-title">Delivery Performance & Seller Analysis – Olist E-commerce</h3>
+                <p class="project-desc">
+                  Engineered an end-to-end relational MySQL architecture analyzing ~100K customer orders across 9 interrelated tables. Constructed comprehensive data-quality assurance checks for duplicates, null records, and timestamp inconsistencies.
+                </p>
+
+                <div class="project-metrics-box">
+                  <div class="pm-item">
+                    <span class="pm-val">~100,000</span>
+                    <span class="pm-label">Orders Modeled</span>
+                  </div>
+                  <div class="pm-item">
+                    <span class="pm-val">9 Tables</span>
+                    <span class="pm-label">Normalized Schema</span>
+                  </div>
+                  <div class="pm-item">
+                    <span class="pm-val">3 Core Views</span>
+                    <span class="pm-label">Cycle Time & Delays</span>
+                  </div>
+                  <div class="pm-item">
+                    <span class="pm-val">On-Time %</span>
+                    <span class="pm-label">Bottleneck Discovery</span>
+                  </div>
+                </div>
+
+                <div class="project-footer">
+                  <button class="btn btn-outline btn-sm" id="open-sql-modal-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="16 18 22 12 16 6"></polyline>
+                      <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    <span>Inspect SQL Views</span>
+                  </button>
+
+                  <a href="https://github.com/satyam0404/ecommerce-sales-analysis" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    <span>View Repository</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 2: Predictive Sales & Vehicle Demand Forecasting -->
+            <article class="card-tilt-3d project-card">
+              <div class="project-thumbnail-box">
+                <img src="assets/images/forecasting-project.jpg" alt="Predictive Modelling for Sales Forecasting" class="project-thumb">
+                <div class="project-overlay-badge">Python / ML Inventory Optimization</div>
+              </div>
+
+              <div class="project-body">
+                <div class="project-tags">
+                  <span class="project-tag">Python (Pandas, NumPy)</span>
+                  <span class="project-tag">Machine Learning</span>
+                  <span class="project-tag">Demand Forecasting</span>
+                  <span class="project-tag">Inventory Holding Costs</span>
+                  <span class="project-tag">SQL</span>
+                </div>
+
+                <h3 class="project-title">Predictive Modelling for Sales & Vehicle Demand Forecasting</h3>
+                <p class="project-desc">
+                  Analyzes historical automotive sales records using Python and SQL to forecast upcoming vehicle demand curves. Prevents costly overstocking, optimizes safety stock buffers, and cuts holding expenditures.
+                </p>
+
+                <div class="project-metrics-box">
+                  <div class="pm-item">
+                    <span class="pm-val">Time Series</span>
+                    <span class="pm-label">Demand Modeling</span>
+                  </div>
+                  <div class="pm-item">
+                    <span class="pm-val">Optimized EOQ</span>
+                    <span class="pm-label">Order Batching</span>
+                  </div>
+                  <div class="pm-item">
+                    <span class="pm-val">-18% to -25%</span>
+                    <span class="pm-label">Holding Cost Reduction</span>
+                  </div>
+                  <div class="pm-item">
+                    <span class="pm-val">Zero Stockout</span>
+                    <span class="pm-label">Safety Buffer Logic</span>
+                  </div>
+                </div>
+
+                <div class="project-footer">
+                  <a href="#simulator" class="btn btn-outline btn-sm">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <span>Test in Live Simulator</span>
+                  </a>
+
+                  <a href="https://github.com/satyam0404" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    <span>GitHub Profile</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= INTERACTIVE EOQ & DEMAND SIMULATOR ================= -->
+      <section id="simulator">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Interactive Analytics Sandbox</span>
+            <h2 class="section-title">Supply Chain Demand & Inventory Simulator</h2>
+            <p class="section-desc">
+              Test how predictive forecasting algorithms optimize the Economic Order Quantity (EOQ), calculate dynamic safety stock, and shrink holding costs.
+            </p>
+          </div>
+
+          <div class="card-tilt-3d simulator-panel">
+            <div class="simulator-grid">
+
+              <!-- Left Controls -->
+              <div class="sim-controls-col">
+                <h3 style="font-size: 1.15rem; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+                  <span style="color: var(--cyan-400);">⚙️</span>
+                  <span>Parameters & Variables</span>
+                </h3>
+
+                <div class="sim-slider-group">
+                  <div class="slider-label-row">
+                    <span>Monthly Forecasted Demand:</span>
+                    <span id="val-demand" class="slider-val-tag">2,500 units/mo</span>
+                  </div>
+                  <input type="range" id="sim-demand" min="500" max="10000" step="250" value="2500">
+                </div>
+
+                <div class="sim-slider-group">
+                  <div class="slider-label-row">
+                    <span>Supplier Lead Time:</span>
+                    <span id="val-leadtime" class="slider-val-tag">15 days</span>
+                  </div>
+                  <input type="range" id="sim-leadtime" min="5" max="60" step="1" value="15">
+                </div>
+
+                <div class="sim-slider-group">
+                  <div class="slider-label-row">
+                    <span>Holding Cost per Unit / Year:</span>
+                    <span id="val-holding" class="slider-val-tag">$12/unit/yr</span>
+                  </div>
+                  <input type="range" id="sim-holding" min="2" max="50" step="1" value="12">
+                </div>
+
+                <div class="sim-slider-group">
+                  <div class="slider-label-row">
+                    <span>Order Placement Cost:</span>
+                    <span id="val-ordercost" class="slider-val-tag">$120/order</span>
+                  </div>
+                  <input type="range" id="sim-ordercost" min="20" max="600" step="10" value="120">
+                </div>
+
+                <div class="sim-slider-group">
+                  <div class="slider-label-row">
+                    <span>Demand Volatility / StdDev:</span>
+                    <span id="val-volatility" class="slider-val-tag">18%</span>
+                  </div>
+                  <input type="range" id="sim-volatility" min="5" max="50" step="1" value="18">
+                </div>
+              </div>
+
+              <!-- Right Results & Dynamic Canvas Chart -->
+              <div class="sim-display-col">
+                <div class="sim-stats-cards">
+                  <div class="sim-stat-box">
+                    <div class="sim-stat-val" id="sim-out-eoq">775 units</div>
+                    <div class="sim-stat-lbl">Optimal EOQ Batch</div>
+                  </div>
+                  <div class="sim-stat-box">
+                    <div class="sim-stat-val" id="sim-out-safety" style="color: var(--emerald-400);">524 units</div>
+                    <div class="sim-stat-lbl">95% Safety Stock</div>
+                  </div>
+                  <div class="sim-stat-box">
+                    <div class="sim-stat-val" id="sim-out-savings" style="color: var(--amber-400);">$4,860</div>
+                    <div class="sim-stat-lbl">Annual Savings</div>
+                  </div>
+                </div>
+
+                <div class="sim-chart-container">
+                  <canvas id="sim-canvas"></canvas>
+                </div>
+
+                <p style="font-size: 0.78rem; color: var(--text-dim); text-align: center;">
+                  *Calculations utilize Wilson's EOQ formulation: <code>EOQ = √((2·D·S)/H)</code> and normal distribution safety buffer <code>SS = Z · σ_L</code> with 95% service confidence.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SKILLS SECTION ================= -->
+      <section id="skills">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Competency Matrix</span>
+            <h2 class="section-title">Skills & Technical Proficiencies</h2>
+            <p class="section-desc">
+              Data pipelines, statistical modeling, supply chain frameworks, and mechanical engineering core principles.
+            </p>
+          </div>
+
+          <div class="skills-grid">
+
+            <!-- Category 1: Data & Analytics -->
+            <div class="card-tilt-3d skill-category-card">
+              <div class="skill-cat-header">
+                <div class="pillar-icon-box icon-cyan">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                  </svg>
+                </div>
+                <h3 class="skill-cat-title">Data & Analytics</h3>
+              </div>
+
+              <div class="skill-items-list">
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>SQL (MySQL, Relational Queries)</span>
+                    <span class="font-mono text-cyan">92%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="92%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Python (Pandas, NumPy)</span>
+                    <span class="font-mono text-cyan">88%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="88%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Machine Learning & Forecasting Models</span>
+                    <span class="font-mono text-cyan">82%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="82%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Power BI & Data Storytelling</span>
+                    <span class="font-mono text-cyan">85%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="85%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Exploratory Data Analysis (EDA)</span>
+                    <span class="font-mono text-cyan">90%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="90%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 2: Supply Chain Planning -->
+            <div class="card-tilt-3d skill-category-card">
+              <div class="skill-cat-header">
+                <div class="pillar-icon-box icon-emerald">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                </div>
+                <h3 class="skill-cat-title">Supply Chain & Operations</h3>
+              </div>
+
+              <div class="skill-items-list">
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Inventory Management & Safety Stock</span>
+                    <span class="font-mono text-emerald">90%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill emerald" data-level="90%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Demand Planning & Forecasting</span>
+                    <span class="font-mono text-emerald">88%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill emerald" data-level="88%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Material Planning (MRP Fundamentals)</span>
+                    <span class="font-mono text-emerald">80%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill emerald" data-level="80%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Holding Cost Reduction & EOQ</span>
+                    <span class="font-mono text-emerald">86%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill emerald" data-level="86%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Order Cycle Time & Delivery Bottlenecks</span>
+                    <span class="font-mono text-emerald">92%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill emerald" data-level="92%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 3: Tools & Business Analytics -->
+            <div class="card-tilt-3d skill-category-card">
+              <div class="skill-cat-header">
+                <div class="pillar-icon-box icon-violet">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </div>
+                <h3 class="skill-cat-title">Tools & Business Software</h3>
+              </div>
+
+              <div class="skill-items-list">
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Advanced Excel (Pivot, VLOOKUP, XLOOKUP)</span>
+                    <span class="font-mono text-violet">94%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill violet" data-level="94%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>MySQL Workbench & Schema Design</span>
+                    <span class="font-mono text-violet">89%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill violet" data-level="89%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Git, GitHub & Version Control</span>
+                    <span class="font-mono text-violet">84%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill violet" data-level="84%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Data Cleaning & Duplicate Validation</span>
+                    <span class="font-mono text-violet">91%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill violet" data-level="91%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 4: Mechanical & Physical Systems -->
+            <div class="card-tilt-3d skill-category-card">
+              <div class="skill-cat-header">
+                <div class="pillar-icon-box icon-amber">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </div>
+                <h3 class="skill-cat-title">Mechanical Engineering</h3>
+              </div>
+
+              <div class="skill-items-list">
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Thermodynamics & Heat Transfer</span>
+                    <span class="font-mono text-amber">85%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill amber" data-level="85%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Crystal Growth & Solid State Physics</span>
+                    <span class="font-mono text-amber">88%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill amber" data-level="88%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Material Science & Defect Analysis</span>
+                    <span class="font-mono text-amber">83%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill amber" data-level="83%"></div></div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-info-row">
+                    <span>Physical Systems Modeling</span>
+                    <span class="font-mono text-amber">86%</span>
+                  </div>
+                  <div class="skill-bar-bg"><div class="skill-bar-fill amber" data-level="86%"></div></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= EDUCATION SECTION ================= -->
+      <section id="education">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Academic Milestones</span>
+            <h2 class="section-title">Education & Credentials</h2>
+            <p class="section-desc">
+              Strong academic foundation combining premier engineering coursework with top percentile performance.
+            </p>
+          </div>
+
+          <div class="timeline-container">
+
+            <!-- DTU -->
+            <div class="timeline-item">
+              <div class="timeline-node">
+                <div class="timeline-node-inner"></div>
+              </div>
+              <div class="card-tilt-3d timeline-card">
+                <div class="timeline-header">
+                  <h3 class="timeline-institution">Delhi Technological University (DTU)</h3>
+                  <span class="timeline-period">2023 – 2027</span>
+                </div>
+                <div class="timeline-degree">Bachelor of Technology (B.Tech) in Mechanical Engineering</div>
+                <div class="timeline-score-badge">
+                  <span>Current CGPA:</span>
+                  <span style="font-size: 1.1rem; color: #ffffff;">7.028</span>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 14px;">
+                  Active coursework covering Advanced Mechanical Systems, Thermodynamics, Fluid Dynamics, Materials Science, along with dedicated focus on Operations Research, Supply Chain Analytics, and Data Science.
+                </p>
+              </div>
+            </div>
+
+            <!-- Class 12th -->
+            <div class="timeline-item">
+              <div class="timeline-node">
+                <div class="timeline-node-inner"></div>
+              </div>
+              <div class="card-tilt-3d timeline-card">
+                <div class="timeline-header">
+                  <h3 class="timeline-institution">Senior Secondary Examination (Class XII)</h3>
+                  <span class="timeline-period">Completed</span>
+                </div>
+                <div class="timeline-degree">Science (Physics, Chemistry, Mathematics)</div>
+                <div class="timeline-score-badge">
+                  <span>Percentage:</span>
+                  <span style="font-size: 1.1rem; color: #ffffff;">85.6%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Class 10th -->
+            <div class="timeline-item">
+              <div class="timeline-node">
+                <div class="timeline-node-inner"></div>
+              </div>
+              <div class="card-tilt-3d timeline-card">
+                <div class="timeline-header">
+                  <h3 class="timeline-institution">Secondary School Examination (Class X)</h3>
+                  <span class="timeline-period">Completed</span>
+                </div>
+                <div class="timeline-degree">All Core Subjects & Sciences</div>
+                <div class="timeline-score-badge">
+                  <span>Percentage:</span>
+                  <span style="font-size: 1.1rem; color: #ffffff;">93.8%</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CONTACT SECTION ================= -->
+      <section id="contact">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Communication Channel</span>
+            <h2 class="section-title">Let's Connect & Collaborate</h2>
+            <p class="section-desc">
+              Looking for full-time opportunities, internships, or research projects in Supply Chain, Procurement, or Data Analytics.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+
+            <!-- Contact Info Panel -->
+            <div class="card-tilt-3d contact-info-panel">
+              <h3 style="font-size: 1.35rem; color: #ffffff;">Direct Coordinates</h3>
+              <p style="font-size: 0.92rem; color: var(--text-muted);">
+                Feel free to reach out directly via email, phone, or connect on GitHub. I typically respond within 24 hours.
+              </p>
+
+              <!-- University Email -->
+              <div class="contact-channel">
+                <div class="contact-channel-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div style="flex-grow: 1;">
+                  <div class="contact-channel-title">Email Address</div>
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <a href="mailto:satyamyadav_23me244@dtu.ac.in" class="contact-channel-value">satyamyadav_23me244@dtu.ac.in</a>
+                    <button class="copy-btn" data-copy-text="satyamyadav_23me244@dtu.ac.in" title="Copy Email">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="contact-channel">
+                <div class="contact-channel-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </div>
+                <div style="flex-grow: 1;">
+                  <div class="contact-channel-title">Phone</div>
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <a href="tel:+919650446219" class="contact-channel-value">+91 9650446219</a>
+                    <button class="copy-btn" data-copy-text="+919650446219" title="Copy Phone Number">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="contact-channel">
+                <div class="contact-channel-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <div>
+                  <div class="contact-channel-title">Location</div>
+                  <div class="contact-channel-value">Rajeev Nagar extension, Delhi, India</div>
+                </div>
+              </div>
+
+              <!-- GitHub -->
+              <div class="contact-channel">
+                <div class="contact-channel-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                </div>
+                <div style="flex-grow: 1;">
+                  <div class="contact-channel-title">GitHub Profile</div>
+                  <a href="https://github.com/satyam0404" target="_blank" rel="noopener noreferrer" class="contact-channel-value">github.com/satyam0404</a>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Contact Message Form -->
+            <div class="card-tilt-3d contact-form-panel">
+              <h3 style="font-size: 1.35rem; color: #ffffff; margin-bottom: 20px;">Send a Direct Message</h3>
+
+              <form id="portfolio-contact-form">
+                <div class="form-group">
+                  <label for="contact-name" class="form-label">Your Name</label>
+                  <input type="text" id="contact-name" class="form-input" placeholder="e.g. John Doe / Hiring Manager" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-email" class="form-label">Your Email</label>
+                  <input type="email" id="contact-email" class="form-input" placeholder="e.g. john@company.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-message" class="form-label">Subject & Message</label>
+                  <textarea id="contact-message" class="form-textarea" placeholder="Hello Satyam, I reviewed your supply chain and analytics portfolio and would like to discuss..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                  <span>Transmit Message</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="brand-logo">
+            <div class="brand-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <span class="brand-title">SATYAM YADAV</span>
+              <div style="font-size: 0.75rem; color: var(--text-dim);">Mechanical Engineering & Data / Business Analytics</div>
+            </div>
+          </div>
+
+          <div class="footer-social-links">
+            <a href="https://github.com/satyam0404" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub Profile">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+            </a>
+            <a href="mailto:satyamyadav_23me244@dtu.ac.in" class="social-icon-btn" aria-label="Email Satyam">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </a>
+            <a href="tel:+919650446219" class="social-icon-btn" aria-label="Call Satyam">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+          <div class="footer-copy">
+            &copy; 2026 Satyam Yadav. Built with modern Three.js WebGL & Vanilla CSS for GitHub Pages.
+          </div>
+          <div style="font-size: 0.8rem; color: var(--emerald-400); display: flex; align-items: center; gap: 6px;">
+            <span class="badge-dot" style="background: var(--emerald-400);"></span>
+            <span>All systems nominal • Delhi Technological University</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ================= MODAL: SQL QUERY INSPECTOR ================= -->
+  <div class="modal-overlay" id="sql-inspector-modal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="close-sql-modal-btn" aria-label="Close Modal">&times;</button>
+
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+        <span class="tag-pill" style="color: var(--cyan-400); border-color: var(--cyan-400);">MySQL 8.0</span>
+        <span class="tag-pill">Olist E-commerce Schema</span>
+      </div>
+
+      <h3 style="font-size: 1.4rem; color: #ffffff; margin-bottom: 8px;">Delivery Performance & KPI Query Architecture</h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
+        Sample query demonstrating the calculation of order cycle time, on-time delivery rates, and carrier delay categorization across ~100K order records.
+      </p>
+
+      <pre style="background: #060911; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 18px; color: #38bdf8; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; overflow-x: auto; line-height: 1.5; margin-bottom: 20px;">
+<code>-- View: Order Cycle Time & Delivery Bottleneck Metrics
+CREATE OR REPLACE VIEW view_delivery_kpis AS
+SELECT 
+    o.order_id,
+    o.customer_id,
+    s.seller_id,
+    s.seller_state,
+    c.customer_state,
+    
+    -- Date Timestamps
+    o.order_purchase_timestamp,
+    o.order_delivered_carrier_date,
+    o.order_delivered_customer_date,
+    o.order_estimated_delivery_date,
+    
+    -- Cycle Time Calculations (Days)
+    DATEDIFF(o.order_delivered_customer_date, o.order_purchase_timestamp) AS total_cycle_days,
+    DATEDIFF(o.order_delivered_carrier_date, o.order_purchase_timestamp) AS seller_dispatch_days,
+    DATEDIFF(o.order_delivered_customer_date, o.order_delivered_carrier_date) AS carrier_transit_days,
+    
+    -- Delivery On-Time Flag & Delay Variance
+    CASE 
+        WHEN o.order_delivered_customer_date <= o.order_estimated_delivery_date THEN 'ON_TIME'
+        ELSE 'DELAYED'
+    END AS delivery_status,
+    
+    DATEDIFF(o.order_delivered_customer_date, o.order_estimated_delivery_date) AS delay_variance_days
+
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN sellers s ON oi.seller_id = s.seller_id
+JOIN customers c ON o.customer_id = c.customer_id
+WHERE o.order_status = 'delivered'
+  AND o.order_delivered_customer_date IS NOT NULL;</code></pre>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px;">
+        <a href="https://github.com/satyam0404/ecommerce-sales-analysis" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+          <span>Inspect Full Repo on GitHub</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/three-scene.js"></script>
+  <script src="js/forecast-simulator.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
