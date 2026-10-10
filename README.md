@@ -20,8 +20,8 @@
 - **Full Credentials from Resumes**:
   - **Education**: Delhi Technological University (DTU, 2023–2027) | B.Tech Mechanical Engineering | **CGPA: 7.028** | 12th: **85.6%** | 10th: **93.8%**.
   - **Defense R&D Experience**: Solid State Physics Laboratory (**DRDO SSPL**) — Crystal Growth, Czochralski semiconductor pulling dynamics, thermal gradient process controls.
-  - **E-Commerce Big Data Project**: Olist Delivery Performance & Seller Analysis — MySQL architecture with ~100K orders across 9 relational tables, cycle time KPI views, on-time delivery bottleneck analysis.
-  - **Predictive Sales Modeling**: Vehicle demand curve forecasting using Python (Pandas, NumPy, Scikit-learn) and SQL to minimize holding expenditures.
+  - **E-Commerce Big Data Project**: [Olist Delivery Performance & Seller Analysis](https://github.com/satyam0404/ecommerce-sales-analysis) — MySQL architecture with ~100K orders across 9 relational tables, cycle time KPI views, on-time delivery bottleneck analysis.
+  - **Machine Learning & Customer Analytics**: [Customer Intelligence & Predictive Analytics Platform](https://github.com/satyam0404/customer-intelligence-platform) — Production-grade suite with RFM segmentation, supervised ML churn models (Random Forest, Gradient Boosting), Market Basket association mining, and Customer Lifetime Value (CLV) projections.
   - **Dual Resume Downloads**: Direct 1-click access to both specialized resumes:
     1. *Supply Chain & Operations Focus* (`Satyam_23_ME_244.pdf`)
     2. *Data & Business Analyst Focus* (`Satyam_23ME244.pdf`)
